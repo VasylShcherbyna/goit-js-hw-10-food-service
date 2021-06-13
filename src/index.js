@@ -17,13 +17,13 @@ const Theme = {
 const bodyHtml = document.querySelector('body');
 function changeTheme(evt) {
   if (evt.target.checked) {
-    bodyHtml.classList.toggle('dark-theme');
-    bodyHtml.classList.toggle('light-theme');
+    bodyHtml.classList.toggle(Theme.DARK);
+    bodyHtml.classList.toggle(Theme.LIGHT);
 
     localStorage.setItem('key', Theme.DARK);
   } else if (!evt.target.checked) {
-    bodyHtml.classList.toggle('light-theme');
-    bodyHtml.classList.toggle('dark-theme');
+    bodyHtml.classList.toggle(Theme.LIGHT);
+    bodyHtml.classList.toggle(Theme.DARK);
     localStorage.setItem('key', Theme.LIGHT);
   }
 }
@@ -35,7 +35,7 @@ function saveTheme() {
     localStorage.setItem('key', bodyHtml.classList);
   } else {
     bodyHtml.classList.add(saveKey);
-    if (saveKey === 'dark-theme') {
+    if (saveKey === Theme.DARK) {
       checkbox.checked = true;
     }
   }
