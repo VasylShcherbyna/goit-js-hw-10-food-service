@@ -1,11 +1,39 @@
-import card from '../templates/card.hbs';
+import creatCardsMenu from '../templates/card.hbs';
 import menu from '../menu.json';
 
-const paletteContainer = document.querySelector('js-menu');
+const paletteContainer = document.querySelector('.js-menu');
 const cardsMenu = creatCardsMenu(menu);
 
-paletteContainer.insertAdjacentHTML('beforeend', cardsMenu);
+paletteContainer.insertAdjacentHTML('afterbegin', cardsMenu);
 
-function creatCardsMenu(menu) {
-  return menu.map(card).join('');
+const checkbox = document.querySelector('#theme-switch-toggle');
+checkbox.addEventListener('change', changeTheme);
+
+const Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme',
+};
+
+const bodyHtml = document.querySelector('body');
+function changeTheme(evt) {
+  if (evt.target.checked) {
+    bodyHtml.classList.toggle('dark-theme');
+    bodyHtml.classList.toggle('light-theme');
+
+    localStorage.setItem('key', Theme.DARK);
+  } else if (!evt.target.checked) {
+    bodyHtml.classList.toggle('light-theme');
+    bodyHtml.classList.toggle('dark-theme');
+    localStorage.setItem('key', Theme.LIGHT);
+  }
+}
+saveTheme();
+function saveTheme() {
+  const saveKey = localStorage.getItem('key');
+  if (saveKey) {
+    bodyHtml.classList.add(saveKey);
+    if (saveKey === 'dark-theme' || saveKey === 'light-theme') {
+      checkbox = true;
+    }
+  }
 }
