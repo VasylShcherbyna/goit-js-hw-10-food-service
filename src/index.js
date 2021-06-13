@@ -30,10 +30,13 @@ function changeTheme(evt) {
 saveTheme();
 function saveTheme() {
   const saveKey = localStorage.getItem('key');
-  if (saveKey) {
+  if (!saveKey) {
+    bodyHtml.classList.add(Theme.LIGHT);
+    localStorage.setItem('key', bodyHtml.classList);
+  } else {
     bodyHtml.classList.add(saveKey);
-    if (saveKey === 'dark-theme' || saveKey === 'light-theme') {
-      checkbox = true;
+    if (saveKey === 'dark-theme') {
+      checkbox.checked = true;
     }
   }
 }
